@@ -1,8 +1,8 @@
-\### Methods Overview
+### Methods Overview
 
 
 
-\* \*\*GetEmployeeById\*\*
+* **GetEmployeeById**
 
 &#x20; Retrieves the full hierarchy of employees starting from the specified root manager.
 
@@ -10,7 +10,7 @@
 
 
 
-\* \*\*GetEmployeeCTEById\*\*
+* **GetEmployeeCTEById**
 
 &#x20; Retrieves the full hierarchy of employees starting from the specified root manager using a SQL recursive CTE.
 
@@ -20,7 +20,7 @@
 
 
 
-\* \*\*EnableEmployee\*\*
+* **EnableEmployee**
 
 &#x20; Updates the `Enable` flag for a specific employee.
 
