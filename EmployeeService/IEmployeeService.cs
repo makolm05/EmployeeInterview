@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using System.Threading.Tasks;
 using System.ServiceModel.Web;
 
 
@@ -12,7 +13,7 @@ namespace EmployeeService
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "GetEmployeeById?id={id}",
             ResponseFormat = WebMessageFormat.Json,  BodyStyle = WebMessageBodyStyle.Bare)]
-        EmployeeDto GetEmployeeById(int id);
+        Task<EmployeeDto> GetEmployeeById(int id);
 
         // NOTE:
         // The sample data contains a potential self-reference (ManagerID = Id),
@@ -24,12 +25,12 @@ namespace EmployeeService
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "GetEmployeeCTEById?id={id}",
         ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
-        EmployeeDto GetEmployeeCTEById(int id);
+        Task<EmployeeDto> GetEmployeeCTEById(int id);
 
         [OperationContract]
-        [WebInvoke(Method = "PUT", UriTemplate = "EnableEmployee?id={id}", 
+        [WebInvoke(Method = "PUT", UriTemplate = "EnableEmployee?id={id}&enable={enable}", 
             BodyStyle = WebMessageBodyStyle.WrappedRequest)]
-        void EnableEmployee(int id, int enable);
+        Task EnableEmployee(int id, bool enable);
     }
 
 	

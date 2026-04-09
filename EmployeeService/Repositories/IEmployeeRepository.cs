@@ -1,9 +1,11 @@
-﻿namespace EmployeeService.Repositories
+﻿using System.Threading.Tasks;
+
+namespace EmployeeService.Repositories
 {
     public interface IEmployeeRepository
     {
-        EmployeeDto GetEmployeeTree(int id);
-        EmployeeDto GetEmployeeTreeCTE(int id);
-        void EnableEmployee(int id, bool enable);
+        Task<EmployeeDto> GetEmployeeTree(int id);
+        Task<EmployeeDto> GetEmployeeTreeCTE(int id);
+        Task EnableEmployee(int id, bool enable);
     }
 }

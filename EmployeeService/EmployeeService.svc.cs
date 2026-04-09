@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using System.Threading.Tasks;
+using EmployeeService.Repositories;
 
 namespace EmployeeService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "EmployeeService" in code, svc and config file together.
+    // NOTE: In order to launch WCF Test Client for testing this service, please select EmployeeService.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class EmployeeService : IEmployeeService
     {
-        public EmployeeDto GetEmployeeById(int id)
+
+        IEmployeeRepository _repository = new EmployeeRepository();
+
+        public async Task<EmployeeDto> GetEmployeeById(int id)
         {
-            throw new NotImplementedException();
+            return await _repository.GetEmployeeTreeCTE(id);
         }
 
-        public EmployeeDto GetEmployeeCTEById(int id)
+        public async Task<EmployeeDto> GetEmployeeCTEById(int id)
         {
-            throw new NotImplementedException();
+            return await _repository.GetEmployeeTreeCTE(id);
         }
 
-        public void EnableEmployee(int id, int enable)
+        public async Task EnableEmployee(int id, bool enable)
         {
-            
+            await _repository.EnableEmployee(id, enable);
         }
     }
       
