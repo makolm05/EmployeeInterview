@@ -12,7 +12,7 @@ namespace EmployeeService
 
         public async Task<EmployeeDto> GetEmployeeById(int id)
         {
-            return await _repository.GetEmployeeTreeCTE(id);
+            return await _repository.GetEmployeeTree(id);
         }
 
         public async Task<EmployeeDto> GetEmployeeCTEById(int id)

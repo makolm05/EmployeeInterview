@@ -1,12 +1,11 @@
-using EmployeeService.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.ServiceModel;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using EmployeeService.Repositories;
 
 public class EmployeeRepository : IEmployeeRepository
 {
@@ -18,10 +17,38 @@ public class EmployeeRepository : IEmployeeRepository
         _connectionString = ConfigurationManager.ConnectionStrings["Employee"].ConnectionString;
     }
 
-    public Task<EmployeeDto> GetEmployeeTree(int id)
+    public async Task<EmployeeDto> GetEmployeeTree(int id)
     {
-        SqlConnection connection = new SqlConnection(_connectionString);
-        throw new System.NotImplementedException();
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            using (var command = new SqlCommand("SELECT ID, Name, ManagerID, Enable FROM Employee", connection))
+            {
+                await connection.OpenAsync();
+
+                var employees = new List<EmployeeDto>();
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
+                        employees.Add(new EmployeeDto
+                        {
+                            ID = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            ManagerID = reader.IsDBNull(2) ? (int?)null : reader.GetInt32(2),
+                            Enable = reader.GetBoolean(3)
+                        });
+                    }
+                }
+
+                var root = employees.FirstOrDefault(e => e.ID == id);
+
+                if (root == null)
+                    throw new Exception($"Employee with ID {id} not found");
+
+                root.Employees = BuildTreeRecursive(root, employees);
+                return root;
+            }
+        }
     }
 
     public async Task<EmployeeDto> GetEmployeeTreeCTE(int id)
@@ -116,6 +143,18 @@ public class EmployeeRepository : IEmployeeRepository
         }
 
         return root;
+    }
+
+    private List<EmployeeDto> BuildTreeRecursive(EmployeeDto parent, List<EmployeeDto> employees)
+    {
+        if(parent.ID == parent.ManagerID)
+        {
+            return new List<EmployeeDto>();
+        }
+        
+        parent.Employees = employees.Where(e => e.ManagerID == parent.ID).ToList();
+        parent.Employees.ForEach(c => BuildTreeRecursive(c, employees));
+        return parent.Employees;
     }
 
 }
