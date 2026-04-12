@@ -5,8 +5,8 @@ namespace EmployeeService.Repositories
 {
     public interface IEmployeeRepository
     {
-        Task<IEnumerable<EmployeeDto>> GetAllUsersAsync();
-        Task<IEnumerable<EmployeeDto>> GetAllUsersByManagerAsync(int id);
+        Task<IEnumerable<EmployeeDto>> GetAllEmployeesAsync();
+        Task<IEnumerable<EmployeeDto>> GetAllEmployeesByManagerAsync(int id);
         Task EnableEmployeeAsync(int id, bool enable);
     }
 }

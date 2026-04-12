@@ -107,14 +107,14 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EmployeeService.svc" />
+    <Content Include="EmployeeWCFService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmployeeService.svc.cs">
-      <DependentUpon>EmployeeService.svc</DependentUpon>
+    <Compile Include="EmployeeWCFService.svc.cs">
+      <DependentUpon>EmployeeWCFService.svc</DependentUpon>
     </Compile>
     <Compile Include="IEmployeeWCFService.cs" />
     <Compile Include="Models\EmployeeDto.cs" />

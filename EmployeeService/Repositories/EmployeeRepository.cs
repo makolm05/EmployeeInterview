@@ -35,7 +35,7 @@ public class EmployeeRepository : IEmployeeRepository
         _connectionString = ConfigurationManager.ConnectionStrings["Employee"].ConnectionString;
     }
 
-    public async Task<IEnumerable<EmployeeDto>> GetAllUsersAsync()
+    public async Task<IEnumerable<EmployeeDto>> GetAllEmployeesAsync()
     {
         using (var connection = new SqlConnection(_connectionString))
         {
@@ -62,7 +62,7 @@ public class EmployeeRepository : IEmployeeRepository
         }
     }
 
-    public async Task<IEnumerable<EmployeeDto>> GetAllUsersByManagerAsync(int id)
+    public async Task<IEnumerable<EmployeeDto>> GetAllEmployeesByManagerAsync(int id)
     {
         using (var connection = new SqlConnection(_connectionString))
         {

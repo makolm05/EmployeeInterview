@@ -18,11 +18,11 @@ namespace EmployeeService.Services
 
         public async Task<EmployeeDto> GetEmployeeTreeAsync(int id)
         {
-            var employees = await _employeeRepository.GetAllUsersAsync();
+            var employees = await _employeeRepository.GetAllEmployeesAsync();
             var root = employees.FirstOrDefault(e => e.ID == id);
 
             if (root == null)
-                throw new Exception($"Employee with ID {id} not found");
+                throw new KeyNotFoundException($"Employee with ID {id} not found");
 
             root.Employees = BuildTreeRecursive(root, employees.ToList());
             return root;
@@ -30,11 +30,11 @@ namespace EmployeeService.Services
 
         public async Task<EmployeeDto> GetEmployeeTreeCTEAsync(int id)
         {
-            var employees = await _employeeRepository.GetAllUsersByManagerAsync(id);
+            var employees = await _employeeRepository.GetAllEmployeesByManagerAsync(id);
 
             if (employees.Count() == 0)
             {
-                throw new Exception($"Employees by request ID {id} not found");
+                throw new KeyNotFoundException($"Employees by request ID {id} not found");
             }
 
             return BuildEmployeeTree(employees.ToList());
