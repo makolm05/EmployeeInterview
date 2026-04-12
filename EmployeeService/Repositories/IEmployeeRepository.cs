@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace EmployeeService.Repositories
 {
     public interface IEmployeeRepository
     {
-        Task<EmployeeDto> GetEmployeeTree(int id);
-        Task<EmployeeDto> GetEmployeeTreeCTE(int id);
-        Task EnableEmployee(int id, bool enable);
+        Task<IEnumerable<EmployeeDto>> GetAllUsersAsync();
+        Task<IEnumerable<EmployeeDto>> GetAllUsersByManagerAsync(int id);
+        Task EnableEmployeeAsync(int id, bool enable);
     }
 }

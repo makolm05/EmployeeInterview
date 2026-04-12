@@ -116,11 +116,13 @@
     <Compile Include="EmployeeService.svc.cs">
       <DependentUpon>EmployeeService.svc</DependentUpon>
     </Compile>
-    <Compile Include="IEmployeeService.cs" />
+    <Compile Include="IEmployeeWCFService.cs" />
     <Compile Include="Models\EmployeeDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\IEmployeeRepository.cs" />
+    <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\IEmployeeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
